@@ -6,3 +6,9 @@
 - [x] Improve shadows, borders, and overall spacing for better depth and readability
 - [x] Enhance mobile responsiveness with additional media queries and flexible layouts
 - [x] Add subtle animations and transitions for a polished user experience
+- [x] Add more shadows throughout the design for better visibility and depth
+
+# Additional Tasks
+
+- [x] Add dark and light mode toggle to login.html and signin.html
+- [x] Modify login.html and signin.html to disable nav bar usage, keeping only dark/light mode toggle

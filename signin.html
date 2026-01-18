@@ -227,10 +227,11 @@
 
     <nav>
         <div class="nav-center">
-            <a href="main.html">Trang chủ</a>
-            <a href="more-acc.html">Sản phẩm</a>
-            <a href="huongdan.html">Hướng dẫn</a>
-            <a href="lienhe.html">Liên hệ</a>
+            <a href="#" onclick="alert('Vui lòng đăng nhập để sử dụng!'); window.location.href = 'login.html';">Trang chủ</a>
+            <a href="#" onclick="alert('Vui lòng đăng nhập để sử dụng!'); window.location.href = 'login.html';">Sản phẩm</a>
+            <a href="#" onclick="alert('Vui lòng đăng nhập để sử dụng!'); window.location.href = 'login.html';">Hướng dẫn</a>
+            <a href="#" onclick="alert('Vui lòng đăng nhập để sử dụng!'); window.location.href = 'login.html';">Liên hệ</a>
+            <button id="darkModeToggle" style="background: none; border: none; color: #fff; font-size: 20px; cursor: pointer;">🌙</button>
         </div>
     </nav>
 
@@ -275,11 +276,27 @@
 
                 // Dark Mode Toggle
                 const body = document.body;
+                const darkModeToggle = document.getElementById('darkModeToggle');
 
                 // Load dark mode preference from localStorage
                 if (localStorage.getItem('darkMode') === 'enabled') {
                     body.classList.add('dark-mode');
+                    darkModeToggle.textContent = '☀️';
+                } else {
+                    darkModeToggle.textContent = '🌙';
                 }
+
+                // Toggle dark mode
+                darkModeToggle.addEventListener('click', () => {
+                    body.classList.toggle('dark-mode');
+                    if (body.classList.contains('dark-mode')) {
+                        localStorage.setItem('darkMode', 'enabled');
+                        darkModeToggle.textContent = '☀️';
+                    } else {
+                        localStorage.setItem('darkMode', 'disabled');
+                        darkModeToggle.textContent = '🌙';
+                    }
+                });
     </script>
 </body>
 

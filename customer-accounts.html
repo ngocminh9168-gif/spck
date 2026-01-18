@@ -31,7 +31,7 @@
             color: #fff;
             padding: 40px 0;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0, 0, 0, 0.1);
         }
 
         header h1 {
@@ -54,7 +54,7 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .nav-center {
@@ -102,7 +102,7 @@
             background: #fff;
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12), 0 5px 20px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
         }
 
@@ -223,7 +223,7 @@
             padding: 20px;
             margin-bottom: 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08), 0 3px 12px rgba(0, 0, 0, 0.04);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -233,7 +233,7 @@
 
         .account-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 6px 20px rgba(0, 0, 0, 0.08);
         }
 
         .account-info {
@@ -504,6 +504,7 @@
                 <input type="text" id="account-fruit" placeholder="Fruit" required><br>
                 <input type="text" id="account-price" placeholder="Price (VNĐ)" required><br>
                 <input type="url" id="account-image" placeholder="Image URL" required><br>
+                <input type="email" id="customer-email" placeholder="Your Email for Contact" required><br>
                 <button type="submit">Submit for Approval</button>
             </form>
             <div id="accounts-list"></div>
@@ -576,15 +577,16 @@
         const fruit = document.getElementById('account-fruit').value;
         const price = document.getElementById('account-price').value;
         const image = document.getElementById('account-image').value;
+        const email = document.getElementById('customer-email').value;
 
         const accounts = JSON.parse(localStorage.getItem('customAccounts')) || [];
 
         if (editingIndex >= 0) {
-            accounts[editingIndex] = { name, level, fruit, price, image };
+            accounts[editingIndex] = { name, level, fruit, price, image, email };
             editingIndex = -1;
             accountForm.querySelector('button').textContent = 'Submit for Approval';
         } else {
-            accounts.push({ name, level, fruit, price, image });
+            accounts.push({ name, level, fruit, price, image, email });
         }
 
         localStorage.setItem('customAccounts', JSON.stringify(accounts));
