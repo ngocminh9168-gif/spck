@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Your Steam Account - Shop Acc Blox Fruit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f3f7fa 0%, #e8f4f8 100%);
+            margin: 0;
+            animation: pageFadeIn 0.8s ease-in-out;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        @keyframes pageFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a2332 0%, #2a3441 100%);
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: linear-gradient(135deg, #263043 0%, #344055 100%);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #fff;
+            margin: 0 20px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        #darkModeToggle {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        #darkModeToggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #1a2332 0%, #2a3441 100%);
+            color: #fff;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+            font-size: 1em;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* CHATBOT */
+        .chatbot {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 360px;
+            height: 520px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        /* TOGGLE BUTTON */
+        .chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            transition: all 0.3s ease;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Form Styles */
+        #account-form {
+            margin-bottom: 30px;
+        }
+
+        #account-form input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        #account-form input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+
+        #account-form button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        #account-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Custom Accounts Styles */
+        .custom-accounts {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .custom-accounts h2 {
+            margin-top: 0;
+            color: #2d3748;
+            font-size: 2em;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .custom-accounts p {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 30px;
+        }
+
+        .account-item {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .account-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .account-info {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .account-info img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .account-info div {
+            flex-grow: 1;
+        }
+
+        .account-info strong {
+            display: block;
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .account-info span {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .account-actions button {
+            margin-left: 10px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background: linear-gradient(135deg, #ff9800 0%, #ff6b35 100%);
+            color: white;
+        }
+
+        .edit-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+            color: white;
+        }
+
+        .delete-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+            color: #ffffff;
+        }
+
+        body.dark-mode header {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+        }
+
+        body.dark-mode nav {
+            background: linear-gradient(135deg, #2c2c2c 0%, #3a3a3a 100%);
+        }
+
+        body.dark-mode nav a {
+            color: #ffffff;
+        }
+
+        body.dark-mode .container {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        body.dark-mode .footer {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+        }
+
+        body.dark-mode .chat-toggle {
+            background: linear-gradient(135deg, #424242 0%, #505050 100%);
+        }
+
+        body.dark-mode .custom-accounts {
+            background: linear-gradient(135deg, #2c2c2c 0%, #3a3a3a 100%);
+            color: #ffffff;
+        }
+
+        body.dark-mode .account-item {
+            background: #3c3c3c;
+            border-color: #555;
+        }
+
+        body.dark-mode input {
+            background-color: #3c3c3c;
+            color: #ffffff;
+            border: 2px solid #555;
+        }
+
+        body.dark-mode input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        body.dark-mode button {
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+            color: #ffffff;
+        }
+
+        body.dark-mode button:hover {
+            background: linear-gradient(135deg, #0a3a7a 0%, #0d47a1 100%);
+        }
+
+        body.dark-mode h2, body.dark-mode p, body.dark-mode label {
+            color: #ffffff;
+        }
+
+        body.dark-mode .account-info strong {
+            color: #ffffff;
+        }
+
+        body.dark-mode .account-info span {
+            color: #cccccc;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 20px auto;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            nav a {
+                margin: 5px 10px;
+                font-size: 14px;
+            }
+
+            .account-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .account-info {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .account-actions {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .chatbot {
+                width: 90%;
+                height: 400px;
+                right: 5%;
+            }
+
+            .chat-toggle {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 20px 0;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            .nav-center {
+                flex-direction: column;
+            }
+
+            nav a {
+                margin: 5px 0;
+            }
+
+            .custom-accounts {
+                padding: 20px;
+            }
+
+            .account-info img {
+                width: 60px;
+                height: 45px;
+            }
+        }
+
+        /* Additional Animations */
+        .account-item {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Link Styles */
+        a {
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Shop Acc Blox Fruit Uy Tín</h1>
+        <p>Submit Your Steam Account for Sale</p>
+    </header>
+    <!-- CHATBOT -->
+    <div class="chatbot" id="chatbotBox">
+        <iframe src="https://www.chatbase.co/chatbot-iframe/s4FH-Fw4P9mC2P8-8kmh1" width="100%" height="100%"
+            frameborder="0">
+        </iframe>
+    </div>
+    
+    <!-- TOGGLE BUTTON -->
+    <button class="chat-toggle" onclick="toggleChat()">💬</button>
+    <nav>
+        <div class="nav-center">
+            <a href="main.html">Trang chủ</a>
+            <a href="main.html#sanpham">Tài khoản</a>
+            <a href="main.html#huongdan">Hướng dẫn</a>
+            <a href="main.html#lienhe">Liên hệ</a>
+            <button id="darkModeToggle" style="background: none; border: none; color: #fff; font-size: 20px; cursor: pointer;">🌙</button>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="custom-accounts">
+            <h2>Submit Your Steam Account for Sale</h2>
+            <p>Fill in the details below. Your account will be reviewed by admin before being added to the shop for purchase.</p>
+            <form id="account-form">
+                <input type="text" id="account-name" placeholder="Account Name" required><br>
+                <input type="number" id="account-level" placeholder="Level" required><br>
+                <input type="text" id="account-fruit" placeholder="Fruit" required><br>
+                <input type="text" id="account-price" placeholder="Price (VNĐ)" required><br>
+                <input type="url" id="account-image" placeholder="Image URL" required><br>
+                <button type="submit">Submit for Approval</button>
+            </form>
+            <div id="accounts-list"></div>
+        </div>
+    </div>
+    <div class="footer">
+        &copy; 2025 Shop Acc Blox Fruit Uy Tín. All rights reserved.
+    </div>
+<script>
+    function toggleChat() {
+        const chat = document.getElementById("chatbotBox");
+        chat.style.display = chat.style.display === "none" ? "block" : "none";
+    }
+
+    // Dark Mode Toggle
+    const body = document.body;
+    const darkModeToggle = document.getElementById('darkModeToggle');
+
+    // Load dark mode preference from localStorage
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+        darkModeToggle.textContent = '☀️';
+    } else {
+        darkModeToggle.textContent = '🌙';
+    }
+
+    // Toggle dark mode
+    darkModeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        if (body.classList.contains('dark-mode')) {
+            localStorage.setItem('darkMode', 'enabled');
+            darkModeToggle.textContent = '☀️';
+        } else {
+            localStorage.setItem('darkMode', 'disabled');
+            darkModeToggle.textContent = '🌙';
+        }
+    });
+
+    // Custom Accounts CRUD
+    const accountForm = document.getElementById('account-form');
+    const accountsList = document.getElementById('accounts-list');
+    let editingIndex = -1;
+
+    function loadAccounts() {
+        const accounts = JSON.parse(localStorage.getItem('customAccounts')) || [];
+        accountsList.innerHTML = '';
+        accounts.forEach((account, index) => {
+            const accountItem = document.createElement('div');
+            accountItem.className = 'account-item';
+            accountItem.innerHTML = `
+                <div class="account-info">
+                    <img src="${account.image}" alt="${account.name}" style="width: 100px; height: 60px; object-fit: cover; border-radius: 4px; margin-right: 12px;">
+                    <div>
+                        <strong>${account.name}</strong> - Level ${account.level} | ${account.fruit} | ${account.price}
+                    </div>
+                </div>
+                <div class="account-actions">
+                    <button class="edit-btn" onclick="editAccount(${index})">Edit</button>
+                    <button class="delete-btn" onclick="deleteAccount(${index})">Delete</button>
+                </div>
+            `;
+            accountsList.appendChild(accountItem);
+        });
+    }
+
+    accountForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('account-name').value;
+        const level = document.getElementById('account-level').value;
+        const fruit = document.getElementById('account-fruit').value;
+        const price = document.getElementById('account-price').value;
+        const image = document.getElementById('account-image').value;
+
+        const accounts = JSON.parse(localStorage.getItem('customAccounts')) || [];
+
+        if (editingIndex >= 0) {
+            accounts[editingIndex] = { name, level, fruit, price, image };
+            editingIndex = -1;
+            accountForm.querySelector('button').textContent = 'Submit for Approval';
+        } else {
+            accounts.push({ name, level, fruit, price, image });
+        }
+
+        localStorage.setItem('customAccounts', JSON.stringify(accounts));
+        accountForm.reset();
+        loadAccounts();
+    });
+
+    function editAccount(index) {
+        const accounts = JSON.parse(localStorage.getItem('customAccounts')) || [];
+        const account = accounts[index];
+        document.getElementById('account-name').value = account.name;
+        document.getElementById('account-level').value = account.level;
+        document.getElementById('account-fruit').value = account.fruit;
+        document.getElementById('account-price').value = account.price;
+        document.getElementById('account-image').value = account.image;
+        editingIndex = index;
+        accountForm.querySelector('button').textContent = 'Update Submission';
+    }
+
+    function deleteAccount(index) {
+        const accounts = JSON.parse(localStorage.getItem('customAccounts')) || [];
+        accounts.splice(index, 1);
+        localStorage.setItem('customAccounts', JSON.stringify(accounts));
+        loadAccounts();
+    }
+
+    // Load accounts on page load
+    loadAccounts();
+</script>
+</body>
+
+</html>

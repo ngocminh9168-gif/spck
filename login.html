@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập tài khoản</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #2196f3, #4caf50);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            animation: pageFadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes pageFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            background: #1a2332;
+            color: #fff;
+            padding: 24px 0;
+            text-align: center;
+        }
+
+        nav {
+            background: #263043;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #4caf50;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .login-form {
+            background-color: #fff;
+            padding: 40px 32px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            width: 380px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 18px;
+            color: #263043;
+        }
+
+        .subtext {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 18px;
+            font-size: 14px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 44px 12px 42px;
+            /* chừa khoảng cho icon trái và nút phải */
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.25s;
+            font-size: 15px;
+        }
+
+        .input-group input:focus {
+            border-color: #2196f3;
+            box-shadow: 0 0 6px rgba(33, 150, 243, 0.35);
+        }
+
+        .input-group i.icon-left {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 16px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px;
+        }
+
+        .login-form .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 6px 0 18px 0;
+            font-size: 14px;
+            color: #4b5563;
+        }
+
+        .login-form .row label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .error {
+            display: none;
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: -8px;
+            margin-bottom: 10px;
+        }
+
+        .login-form button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #2196f3, #4caf50);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: 0.25s;
+        }
+
+        .login-form button[type="submit"]:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            color: #2196f3;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        /* CHATBOT */
+        .chatbot {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 360px;
+            height: 520px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            display: none;
+        }
+
+        /* TOGGLE BUTTON */
+        .chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+        }
+
+        .chat-toggle:hover {
+            background: #5a67d8;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background: linear-gradient(135deg, #0d47a1, #1b5e20);
+            color: #ffffff;
+        }
+
+        body.dark-mode header {
+            background: #1e1e1e;
+        }
+
+        body.dark-mode nav {
+            background: #2c2c2c;
+        }
+
+        body.dark-mode nav a {
+            color: #ffffff;
+        }
+
+        body.dark-mode .login-form {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        body.dark-mode .login-form h2 {
+            color: #ffffff;
+        }
+
+        body.dark-mode .subtext {
+            color: #cccccc;
+        }
+
+        body.dark-mode .input-group input {
+            background: #2c2c2c;
+            color: #ffffff;
+            border-color: #555555;
+        }
+
+        body.dark-mode .input-group input:focus {
+            border-color: #0d47a1;
+        }
+
+        body.dark-mode .signup-link a {
+            color: #0d47a1;
+        }
+
+        body.dark-mode .chat-toggle {
+            background: #424242;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Shop Bán Acc Blox Fruit Uy Tín</h1>
+        <p>Acc Blox Fruit giá rẻ, uy tín, hỗ trợ 24/7</p>
+    </header>
+    <!-- CHATBOT -->
+    <div class="chatbot" id="chatbotBox">
+        <iframe src="https://www.chatbase.co/chatbot-iframe/s4FH-Fw4P9mC2P8-8kmh1" width="100%" height="100%"
+            frameborder="0">
+        </iframe>
+    </div>
+    
+    <!-- TOGGLE BUTTON -->
+    <button class="chat-toggle" onclick="toggleChat()">💬</button>
+
+    <nav>
+        <div class="nav-center">
+            <a href="main.html" class="nav-link">Trang chủ</a>
+            <a href="more-acc.html" class="nav-link">Sản phẩm</a>
+            <a href="huongdan.html" class="nav-link">Hướng dẫn</a>
+            <a href="lienhe.html" class="nav-link">Liên hệ</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <form class="login-form" id="loginForm" novalidate>
+            <h2>Đăng nhập tài khoản</h2>
+            <p class="subtext">Vui lòng nhập email và mật khẩu để tiếp tục</p>
+
+            <div class="input-group">
+                <i class="fa-solid fa-envelope icon-left"></i>
+                <input type="email" id="loginEmail" placeholder="Email" autocomplete="email" required>
+            </div>
+            <p id="emailError" class="error">Vui lòng nhập email hợp lệ.</p>
+
+            <div class="input-group">
+                <i class="fa-solid fa-lock icon-left"></i>
+                <input type="password" id="loginPassword" placeholder="Mật khẩu" autocomplete="current-password"
+                    minlength="6" required>
+                <button type="button" class="toggle-password" id="togglePwd" aria-label="Hiện/ẩn mật khẩu">
+                    <i class="fa-regular fa-eye"></i>
+                </button>
+            </div>
+            <p id="passwordError" class="error">Mật khẩu tối thiểu 6 ký tự.</p>
+
+            <div class="row">
+                <label>
+                    <input type="checkbox" id="rememberMe">
+                    Nhớ đăng nhập
+                </label>
+                <a href="#" style="color:#2196f3; text-decoration:none;">Quên mật khẩu?</a>
+            </div>
+
+            <button type="submit">Đăng nhập</button>
+
+            <div class="signup-link">
+                <p>Chưa có tài khoản? <a href="signin.html">Đăng ký</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Toggle hiện/ẩn mật khẩu, tránh lỗi overflow/đè icon
+        const pwdInput = document.getElementById('loginPassword');
+        const togglePwd = document.getElementById('togglePwd');
+        togglePwd.addEventListener('click', () => {
+            const isHidden = pwdInput.type === 'password';
+            pwdInput.type = isHidden ? 'text' : 'password';
+            togglePwd.innerHTML = isHidden
+                ? '<i class="fa-regular fa-eye-slash"></i>'
+                : '<i class="fa-regular fa-eye"></i>';
+        });
+
+        // Validate cơ bản, hiển thị lỗi gọn gàng thay vì alert
+        const form = document.getElementById('loginForm');
+        const emailInput = document.getElementById('loginEmail');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const rememberMe = document.getElementById('rememberMe');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            let valid = true;
+            emailError.style.display = 'none';
+            passwordError.style.display = 'none';
+
+            if (!emailInput.value || !emailInput.checkValidity()) {
+                emailError.style.display = 'block';
+                valid = false;
+            }
+            if (!pwdInput.value || pwdInput.value.length < 6) {
+                passwordError.style.display = 'block';
+                valid = false;
+            }
+            if (!valid) return;
+
+            const email = emailInput.value;
+            const password = pwdInput.value;
+
+            const storedEmail = localStorage.getItem("userEmail");
+            const storedPassword = localStorage.getItem("userPassword");
+
+            if (email === storedEmail && password === storedPassword) {
+                if (rememberMe.checked) {
+                    localStorage.setItem("isLoggedIn", "true");
+                } else {
+                    // dùng sessionStorage nếu không nhớ đăng nhập
+                    sessionStorage.setItem("isLoggedIn", "true");
+                    localStorage.removeItem("isLoggedIn");
+                }
+                alert("Đăng nhập thành công!");
+                window.location.href = "main.html";
+            } else {
+                passwordError.textContent = "Sai email hoặc mật khẩu!";
+                passwordError.style.display = 'block';
+            }
+        });
+
+        // Chặn truy cập navbar nếu chưa đăng nhập (ưu tiên sessionStorage trước)
+        document.querySelectorAll(".nav-link").forEach(link => {
+            link.addEventListener("click", function (e) {
+                const isLoggedInSession = sessionStorage.getItem("isLoggedIn") === "true";
+                const isLoggedInLocal = localStorage.getItem("isLoggedIn") === "true";
+                const isLoggedIn = isLoggedInSession || isLoggedInLocal;
+
+                if (!isLoggedIn) {
+                    e.preventDefault();
+                    alert("Vui lòng đăng nhập để vào!");
+                    // ở trang login thì không chuyển nữa
+                }
+            });
+        });
+            function toggleChat() {
+                const chat = document.getElementById("chatbotBox");
+                chat.style.display = chat.style.display === "none" ? "block" : "none";
+            }
+
+            // Dark Mode Toggle
+            const body = document.body;
+
+            // Load dark mode preference from localStorage
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                body.classList.add('dark-mode');
+            }
+    </script>
+</body>
+
+</html>

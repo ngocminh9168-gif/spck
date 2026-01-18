@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng ký tài khoản</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: linear-gradient(135deg, #2196f3, #4caf50);
+        /* xanh */
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        animation: pageFadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes pageFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+        header {
+            background: #1a2332;
+            color: #fff;
+            text-align: center;
+            padding: 24px 0;
+        }
+
+        nav {
+            background: #263043;
+            padding: 16px 0;
+        }
+
+        .nav-center {
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .signup-form {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            width: 360px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .signup-form h2 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: #263043;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .input-group input {
+            width: 100%;
+            /* chiếm hết chiều rộng khung */
+            box-sizing: border-box;
+            /* tính cả padding/border trong width */
+            padding: 12px 36px 12px 12px;
+            /* chừa chỗ cho icon bên phải */
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .input-group i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            pointer-events: none;
+        }
+
+        .signup-form button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #2196f3, #4caf50);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #2196f3;
+            font-weight: bold;
+        }
+        /* CHATBOT */
+        .chatbot {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 360px;
+            height: 520px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            display: none;
+        }
+
+        /* TOGGLE BUTTON */
+        .chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+        }
+
+        .chat-toggle:hover {
+            background: #5a67d8;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background: linear-gradient(135deg, #0d47a1, #1b5e20);
+            color: #ffffff;
+        }
+
+        body.dark-mode header {
+            background: #1e1e1e;
+        }
+
+        body.dark-mode nav {
+            background: #2c2c2c;
+        }
+
+        body.dark-mode nav a {
+            color: #ffffff;
+        }
+
+        body.dark-mode .signup-form {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        body.dark-mode .signup-form h2 {
+            color: #ffffff;
+        }
+
+        body.dark-mode .input-group input {
+            background: #2c2c2c;
+            color: #ffffff;
+            border-color: #555555;
+        }
+
+        body.dark-mode .login-link a {
+            color: #0d47a1;
+        }
+
+        body.dark-mode .chat-toggle {
+            background: #424242;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Shop Bán Acc Blox Fruit Uy Tín</h1>
+        <p>Acc Blox Fruit giá rẻ, uy tín, hỗ trợ 24/7</p>
+    </header>
+    <!-- CHATBOT -->
+    <div class="chatbot" id="chatbotBox">
+        <iframe src="https://www.chatbase.co/chatbot-iframe/s4FH-Fw4P9mC2P8-8kmh1" width="100%" height="100%"
+            frameborder="0">
+        </iframe>
+    </div>
+    
+    <!-- TOGGLE BUTTON -->
+    <button class="chat-toggle" onclick="toggleChat()">💬</button>
+
+    <nav>
+        <div class="nav-center">
+            <a href="main.html">Trang chủ</a>
+            <a href="more-acc.html">Sản phẩm</a>
+            <a href="huongdan.html">Hướng dẫn</a>
+            <a href="lienhe.html">Liên hệ</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <form class="signup-form" id="signupForm">
+            <h2>Đăng ký tài khoản</h2>
+            <div class="input-group">
+                <input type="text" id="signupName" placeholder="Tên người dùng" required>
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="input-group">
+                <input type="email" id="signupEmail" placeholder="Email" required>
+                <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="input-group">
+                <input type="password" id="signupPassword" placeholder="Mật khẩu" required>
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <button type="submit">Đăng ký</button>
+            <div class="login-link">
+                <p>Đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("signupForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const name = document.getElementById("signupName").value;
+            const email = document.getElementById("signupEmail").value;
+            const password = document.getElementById("signupPassword").value;
+            localStorage.setItem("userName", name);
+            localStorage.setItem("userEmail", email);
+            localStorage.setItem("userPassword", password);
+            alert("Đăng ký thành công! Vui lòng đăng nhập.");
+            window.location.href = "login.html";
+        });
+                function toggleChat() {
+                    const chat = document.getElementById("chatbotBox");
+                    chat.style.display = chat.style.display === "none" ? "block" : "none";
+                }
+
+                // Dark Mode Toggle
+                const body = document.body;
+
+                // Load dark mode preference from localStorage
+                if (localStorage.getItem('darkMode') === 'enabled') {
+                    body.classList.add('dark-mode');
+                }
+    </script>
+</body>
+
+</html>

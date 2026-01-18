@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shop Acc Blox Fruit - Xem Thêm Tài Khoản</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f3f7fa, #e1f5fe);
+            margin: 0;
+        }
+
+        header {
+            background: #1a2332;
+            color: #fff;
+            padding: 24px 0;
+            text-align: center;
+        }
+
+        nav {
+            background: #263043;
+            padding: 24px 0;
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            margin: 0 18px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 32px auto;
+            background: #fff;
+            padding: 32px;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .products {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 32px 0;
+        }
+
+        .product-card {
+            background: #f7fafc;
+            padding: 24px;
+            border-radius: 10px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
+            text-align: center;
+            width: 260px;
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px) scale(1.03);
+        }
+
+        .product-card img {
+            width: 100%;
+            max-width: 220px;
+            height: 120px;
+            object-fit: cover;
+            margin-bottom: 12px;
+            border-radius: 8px;
+        }
+
+        .product-card h3 {
+            margin: 12px 0 8px;
+            font-size: 1.2em;
+        }
+
+        .product-card p {
+            margin: 0 0 12px;
+            font-size: 1.1em;
+        }
+
+        .product-card button {
+            background: #2196f3;
+            color: #fff;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .product-card button:hover {
+            background: #1769aa;
+        }
+
+        .footer {
+            background: #1a2332;
+            color: #fff;
+            text-align: center;
+            padding: 18px 0;
+            margin-top: 48px;
+            font-size: 1em;
+        }
+        /* CHATBOT */
+        .chatbot {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 360px;
+            height: 520px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            display: none;
+        }
+
+        /* TOGGLE BUTTON */
+        .chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+        }
+
+
+        @media (max-width: 900px) {
+            .products {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .container {
+                padding: 16px;
+            }
+        }
+         a {
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background: #121212;
+            color: #ffffff;
+        }
+
+        body.dark-mode header {
+            background: #1e1e1e;
+        }
+
+        body.dark-mode nav {
+            background: #2c2c2c;
+        }
+
+        body.dark-mode nav a {
+            color: #ffffff;
+        }
+
+        body.dark-mode .container {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        body.dark-mode .product-card {
+            background: #2c2c2c;
+            color: #ffffff;
+        }
+
+        body.dark-mode .product-card button {
+            background: #0d47a1;
+        }
+
+        body.dark-mode .product-card button:hover {
+            background: #0a3a7a;
+        }
+
+        body.dark-mode .footer {
+            background: #1e1e1e;
+        }
+
+        body.dark-mode .chat-toggle {
+            background: #424242;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark-mode .modal {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #fefefe, #f8f9fa);
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        #logout-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        #logout-btn:hover {
+            background: #d32f2f;
+        }
+
+        body.dark-mode .modal-content {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        body.dark-mode .close {
+            color: #aaa;
+        }
+
+        body.dark-mode input, body.dark-mode textarea, body.dark-mode select {
+            background-color: #3c3c3c;
+            color: #ffffff;
+            border: 1px solid #555;
+        }
+
+        body.dark-mode button {
+            background-color: #0d47a1;
+            color: #ffffff;
+        }
+
+        body.dark-mode button:hover {
+            background-color: #0a3a7a;
+        }
+
+        body.dark-mode h4, body.dark-mode p, body.dark-mode label {
+            color: #ffffff;
+        }
+
+        body.dark-mode .settings-content h4 {
+            color: #ffffff;
+        }
+
+        body.dark-mode .settings-content p {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- CHATBOT -->
+    <div class="chatbot" id="chatbotBox">
+        <iframe src="https://www.chatbase.co/chatbot-iframe/s4FH-Fw4P9mC2P8-8kmh1" width="100%" height="100%"
+            frameborder="0">
+        </iframe>
+    </div>
+    
+    <!-- TOGGLE BUTTON -->
+    <button class="chat-toggle" onclick="toggleChat()">💬</button>
+    <header>
+        <h1>Shop Acc Blox Fruit Uy Tín</h1>
+        <p>10 Tài khoản Blox Fruit khác</p>
+    </header>
+    <nav>
+        <div class="nav-center">
+            <a href="main.html">Trang chủ</a>
+            <a href="main.html#sanpham">Tài khoản</a>
+            <a href="main.html#huongdan">Hướng dẫn</a>
+            <a href="main.html#lienhe">Liên hệ</a>
+            <img id="nav-profile-picture" src="" alt="Profile Picture" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; cursor: pointer; margin: 0 18px; display: none;">
+            <span id="nav-icon" style="font-size: 24px; cursor: pointer; margin: 0 18px;">👤</span>
+        </div>
+    </nav>
+
+    <!-- User Modal -->
+    <div id="user-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>User Account</h2>
+            <div id="user-info">
+                <div id="profile-picture-container">
+                    <img id="profile-picture" src="" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; display: none;">
+                </div>
+                <p><strong>Username:</strong> Guest</p>
+                <p><strong>Email:</strong> guest@example.com</p>
+            </div>
+            <button id="settings-toggle" style="background: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-bottom: 20px;">Settings</button>
+            <div id="settings-content" style="display: none;">
+                <h4>Dark Mode</h4>
+                <button id="dark-mode-toggle" style="background: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">🌙 Dark Mode</button>
+            </div>
+            <h3>Purchased Accounts</h3>
+            <ul id="purchased-accounts">
+                <li>No purchases yet.</li>
+            </ul>
+            <button id="logout-btn">Logout</button>
+        </div>
+    </div>
+    <div class="container">
+        <h2>Các tài khoản Blox Fruit nổi bật khác</h2>
+        <div class="products">
+            <div class="product-card">
+                <img src="https://cdn-offer-photos.zeusx.com/7ec10545-f722-49c1-bebd-5e46aec5c553.jpg"
+                    alt="Acc Blox Fruit">
+                <h3>Acc Blox Fruit #006</h3>
+                <p>Level 2350 | spirit blox fruit | <b>270.000 VNĐ</b></p>
+                <button type="submit"><a href="xacnhan6.html">mua</a></button>
+            </div>
+            <div class="product-card">
+                <img src="https://cdn-offer-photos.zeusx.com/12194b3d-4320-4786-ac93-e863e4350226.jpg"
+                    alt="Acc Blox Fruit">
+                <h3>Acc Blox Fruit #007</h3>
+                <p>Level 2300 | shadow blox fruit | <b>260.000 VNĐ</b></p>
+                <button type="submit"><a href="xacnhan7.html">mua</a></button>
+            </div>
+            <div class="product-card">
+                <img src="https://cdn-offer-photos.zeusx.com/d31fe3cd-f03a-49ba-949a-7129db7c59f8.jpg"
+                    alt="Acc Blox Fruit">
+                <h3>Acc Blox Fruit #008</h3>
+                <p>Level 2250 | portal blox fruit | <b>250.000 VNĐ</b></p>
+                <button type="submit"><a href="xacnhan8.html">mua</a></button>
+            </div>
+            <div class="product-card">
+                <img src="https://cdn-offer-photos.zeusx.com/8ccd2774-5926-417c-bde5-545f3c08b673.jpg"
+                    alt="Acc Blox Fruit">
+                <h3>Acc Blox Fruit #009</h3>
+                <p>Level 2200 | control blox fruit | <b>240.000 VNĐ</b></p>
+                <button type="submit"><a href="xacnhan9.html">mua</a></button>
+            </div>
+            <div class="product-card">
+                <img src="https://cdn-offer-photos.zeusx.com/ae750c85-0f42-4772-99e9-7d8b7dc39f6b.jpg"
+                    alt="Acc Blox Fruit">
+                <h3>Acc Blox Fruit #010</h3>
+                <p>Level 2150 | phoenix blox fruit | <b>230.000 VNĐ</b></p>
+                <button type="submit"><a href="xacnhan10.html">mua</a></button>
+            </div>
+            <div class="product-card">
+                <img src="https://cdn-offer-photos.zeusx.com/a35eaac1-b000-4978-b332-269d9fffc7a4.jpg"
+                    alt="Acc Blox Fruit">
+                <h3>Acc Blox Fruit #011</h3>
+                <p>Level 2100 | magma blox fruit | <b>220.000 VNĐ</b></p>
+                <button type="submit"><a href="xacnhan11.html">mua</a></button>
+            </div>
+            <div class="product-card">
+                <img src="https://cdn-offer-photos.zeusx.com/32bc9c1b-a119-44d3-8b14-cfce8f46f32d.jpg"
+                    alt="Acc Blox Fruit">
+                <h3>Acc Blox Fruit #012</h3>
+                <p>Level 2050 | light blox fruit | <b>210.000 VNĐ</b></p>
+                <button type="submit"><a href="xacnhan12.html">mua</a></button>
+            </div>
+            <div class="product-card">
+                <img src="https://d1x91p7vw3vuq8.cloudfront.net/itemku-upload/2024720/rj4fefz4ofhqiicgvjbwa_thumbnail.jpg"
+                    alt="Acc Blox Fruit">
+                <h3>Acc Blox Fruit #013</h3>
+                <p>Level 2000 | flame blox fruit | <b>200.000 VNĐ</b></p>
+                <button type="submit"><a href="xacnhan13.html">mua</a></button>
+            </div>
+            <div class="product-card">
+                <img src="https://cdn-offer-photos.zeusx.com/8bc2b4b8-56e5-40bc-8ee1-f0bed6804d54.jpg"
+                    alt="Acc Blox Fruit">
+                <h3>Acc Blox Fruit #014</h3>
+                <p>Level 1950 | ice blox fruit | <b>190.000 VNĐ</b></p>
+                <button type="submit"><a href="xacnhan14.html">mua</a></button>
+            </div>
+            <div class="product-card">
+                <img src="https://d1x91p7vw3vuq8.cloudfront.net/itemku-upload/202485/45at748djlxfxxq4ithicl_thumbnail.jpg"
+                    alt="Acc Blox Fruit">
+                <h3>Acc Blox Fruit #015</h3>
+                <p>Level 1900 | sand blox fruit | <b>180.000 VNĐ</b></p>
+                <button type="submit"><a href="xacnhan15.html">mua</a></button>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        &copy; 2024 Shop Acc Blox Fruit. All rights reserved.
+    </div>
+<script>
+    function toggleChat() {
+        const chat = document.getElementById("chatbotBox");
+        chat.style.display = chat.style.display === "none" ? "block" : "none";
+    }
+
+    // User Modal
+    const navProfileImg = document.getElementById('nav-profile-picture');
+    const navIcon = document.getElementById('nav-icon');
+    const userModal = document.getElementById('user-modal');
+    const settingsToggle = document.getElementById('settings-toggle');
+    const settingsContent = document.getElementById('settings-content');
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const body = document.body;
+    const logoutBtn = document.getElementById('logout-btn');
+
+    navProfileImg.addEventListener('click', () => {
+        userModal.style.display = 'block';
+        loadUserData();
+    });
+
+    navIcon.addEventListener('click', () => {
+        userModal.style.display = 'block';
+        loadUserData();
+    });
+
+    settingsToggle.addEventListener('click', () => {
+        settingsContent.style.display = settingsContent.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Load dark mode preference from localStorage
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+        darkModeToggle.textContent = '☀️ Light Mode';
+    }
+
+    darkModeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        if (body.classList.contains('dark-mode')) {
+            localStorage.setItem('darkMode', 'enabled');
+            darkModeToggle.textContent = '☀️ Light Mode';
+        } else {
+            localStorage.setItem('darkMode', 'disabled');
+            darkModeToggle.textContent = '🌙 Dark Mode';
+        }
+    });
+
+    // Close modals
+    const closeBtns = document.getElementsByClassName('close');
+    for (let i = 0; i < closeBtns.length; i++) {
+        closeBtns[i].addEventListener('click', () => {
+            userModal.style.display = 'none';
+        });
+    }
+
+    window.addEventListener('click', (event) => {
+        if (event.target === userModal) {
+            userModal.style.display = 'none';
+        }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('purchasedAccounts');
+        window.location.href = 'login.html';
+    });
+
+    function loadUserData() {
+        const username = localStorage.getItem('userName') || 'Guest';
+        const email = localStorage.getItem('userEmail') || 'guest@example.com';
+        const profilePicture = localStorage.getItem('profilePicture');
+        const profileImg = document.getElementById('profile-picture');
+        const navProfileImg = document.getElementById('nav-profile-picture');
+        const navIcon = document.getElementById('nav-icon');
+        if (profilePicture) {
+            profileImg.src = profilePicture;
+            profileImg.style.display = 'block';
+            navProfileImg.src = profilePicture;
+            navProfileImg.style.display = 'inline';
+            navIcon.style.display = 'none';
+            navProfileImg.onerror = () => {
+                navProfileImg.style.display = 'none';
+                navIcon.style.display = 'inline';
+            };
+        } else {
+            profileImg.style.display = 'none';
+            navProfileImg.style.display = 'none';
+            navIcon.style.display = 'inline';
+        }
+        document.getElementById('user-info').innerHTML = `
+            <p><strong>Username:</strong> ${username}</p>
+            <p><strong>Email:</strong> ${email}</p>
+        `;
+
+        const purchasedAccounts = JSON.parse(localStorage.getItem('purchasedAccounts')) || [];
+        const list = document.getElementById('purchased-accounts');
+        list.innerHTML = purchasedAccounts.length > 0
+            ? purchasedAccounts.map(acc => `<li>${acc}</li>`).join('')
+            : '<li>No purchases yet.</li>';
+    }
+</script>
+</body>
+
+</html>
