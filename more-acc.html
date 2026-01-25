@@ -354,6 +354,17 @@
             <button id="logout-btn">Logout</button>
         </div>
     </div>
+
+    <!-- Guest Modal -->
+    <div id="guest-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Continue as Guest or Sign In</h2>
+            <p>You can view the account details as a guest, but purchasing requires an account.</p>
+            <button id="continue-guest" style="background: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-right: 10px;">Continue without Login</button>
+            <button id="sign-in" style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Continue with Account</button>
+        </div>
+    </div>
     <div class="container">
         <h2>Các tài khoản Blox Fruit nổi bật khác</h2>
         <div class="products">
@@ -493,11 +504,17 @@
         }
     });
 
-    logoutBtn.addEventListener('click', () => {
-        localStorage.removeItem('user');
-        localStorage.removeItem('purchasedAccounts');
-        window.location.href = 'login.html';
-    });
+                logoutBtn.addEventListener('click', () => {
+                    localStorage.removeItem('user');
+                    localStorage.removeItem('purchasedAccounts');
+                    localStorage.removeItem('userName');
+                    localStorage.removeItem('userEmail');
+                    localStorage.removeItem('isLoggedIn');
+                    localStorage.removeItem('currentUser');
+                    sessionStorage.removeItem('isLoggedIn');
+                    sessionStorage.removeItem('currentUser');
+                    window.location.href = 'login.html';
+                });
 
     function loadUserData() {
         const username = localStorage.getItem('userName') || 'Guest';
@@ -532,6 +549,95 @@
             ? purchasedAccounts.map(acc => `<li>${acc}</li>`).join('')
             : '<li>No purchases yet.</li>';
     }
+
+    // Custom Accounts Functionality
+    const accountForm = document.getElementById('account-form');
+    const accountsList = document.getElementById('accounts-list');
+    let editingIndex = -1;
+
+    function loadAccounts() {
+        const accounts = JSON.parse(localStorage.getItem('customAccounts')) || [];
+        accountsList.innerHTML = '';
+        accounts.forEach((account, index) => {
+            const accountItem = document.createElement('div');
+            accountItem.className = 'account-item';
+            accountItem.innerHTML = `
+                <div class="account-info">
+                    <img src="${account.image}" alt="${account.name}" onerror="this.src='https://via.placeholder.com/80x60?text=No+Image'">
+                    <div>
+                        <strong>${account.name}</strong> - Level ${account.level} | ${account.fruit} | ${account.price} VNĐ
+                        <br><small>Email: ${account.email}</small>
+                    </div>
+                </div>
+                <div class="account-actions">
+                    <button class="edit-btn" onclick="editAccount(${index})">Edit</button>
+                    <button class="delete-btn" onclick="deleteAccount(${index})">Delete</button>
+                </div>
+            `;
+            accountsList.appendChild(accountItem);
+        });
+    }
+
+    accountForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('account-name').value;
+        const level = document.getElementById('account-level').value;
+        const fruit = document.getElementById('account-fruit').value;
+        const price = document.getElementById('account-price').value;
+        const image = document.getElementById('account-image').value;
+        const email = document.getElementById('customer-email').value;
+
+        const accounts = JSON.parse(localStorage.getItem('customAccounts')) || [];
+
+        if (editingIndex >= 0) {
+            accounts[editingIndex] = { name, level, fruit, price, image, email };
+            editingIndex = -1;
+            accountForm.querySelector('button').textContent = 'Gửi yêu cầu';
+        } else {
+            accounts.push({ name, level, fruit, price, image, email });
+        }
+
+        localStorage.setItem('customAccounts', JSON.stringify(accounts));
+        accountForm.reset();
+        loadAccounts();
+    });
+
+    function editAccount(index) {
+        const accounts = JSON.parse(localStorage.getItem('customAccounts')) || [];
+        const account = accounts[index];
+        document.getElementById('account-name').value = account.name;
+        document.getElementById('account-level').value = account.level;
+        document.getElementById('account-fruit').value = account.fruit;
+        document.getElementById('account-price').value = account.price;
+        document.getElementById('account-image').value = account.image;
+        document.getElementById('customer-email').value = account.email;
+        editingIndex = index;
+        accountForm.querySelector('button').textContent = 'Cập nhật yêu cầu';
+    }
+
+    function deleteAccount(index) {
+        const accounts = JSON.parse(localStorage.getItem('customAccounts')) || [];
+        accounts.splice(index, 1);
+        localStorage.setItem('customAccounts', JSON.stringify(accounts));
+        loadAccounts();
+    }
+
+    // Load accounts on page load
+    loadAccounts();
+
+    // Check login for buy links
+    document.querySelectorAll('a[href*="xacnhan"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const isLoggedInSession = sessionStorage.getItem("isLoggedIn") === "true";
+            const isLoggedInLocal = localStorage.getItem("isLoggedIn") === "true";
+            const isLoggedIn = isLoggedInSession || isLoggedInLocal;
+            if (!isLoggedIn) {
+                e.preventDefault();
+                alert("Vui lòng đăng nhập để mua tài khoản!");
+                window.location.href = "login.html";
+            }
+        });
+    });
 </script>
 </body>
 

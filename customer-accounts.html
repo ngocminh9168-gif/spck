@@ -468,6 +468,99 @@
         a:hover {
             opacity: 0.8;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark-mode .modal {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #fefefe, #f8f9fa);
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        #logout-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        #logout-btn:hover {
+            background: #d32f2f;
+        }
+
+        body.dark-mode .modal-content {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        body.dark-mode .close {
+            color: #aaa;
+        }
+
+        body.dark-mode input, body.dark-mode textarea, body.dark-mode select {
+            background-color: #3c3c3c;
+            color: #ffffff;
+            border: 1px solid #555;
+        }
+
+        body.dark-mode button {
+            background-color: #0d47a1;
+            color: #ffffff;
+        }
+
+        body.dark-mode button:hover {
+            background-color: #0a3a7a;
+        }
+
+        body.dark-mode h4, body.dark-mode p, body.dark-mode label {
+            color: #ffffff;
+        }
+
+        body.dark-mode .settings-content h4 {
+            color: #ffffff;
+        }
+
+        body.dark-mode .settings-content p {
+            color: #ffffff;
+        }
     </style>
 </head>
 
@@ -491,9 +584,46 @@
             <a href="main.html#sanpham">Tài khoản</a>
             <a href="main.html#huongdan">Hướng dẫn</a>
             <a href="main.html#lienhe">Liên hệ</a>
-            <button id="darkModeToggle" style="background: none; border: none; color: #fff; font-size: 20px; cursor: pointer;">🌙</button>
+            <img id="nav-profile-picture" src="" alt="Profile Picture" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; cursor: pointer; margin: 0 18px; display: none;">
+            <span id="nav-icon" style="font-size: 24px; cursor: pointer; margin: 0 18px;">👤</span>
         </div>
     </nav>
+
+    <!-- User Modal -->
+    <div id="user-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>User Account</h2>
+            <div id="user-info">
+                <div id="profile-picture-container">
+                    <img id="profile-picture" src="" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; display: none;">
+                </div>
+                <p><strong>Username:</strong> Guest</p>
+                <p><strong>Email:</strong> guest@example.com</p>
+            </div>
+            <button id="settings-toggle" style="background: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-bottom: 20px;">Settings</button>
+            <div id="settings-content" style="display: none;">
+                <h4>Dark Mode</h4>
+                <button id="dark-mode-toggle" style="background: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">🌙 Dark Mode</button>
+            </div>
+            <h3>Purchased Accounts</h3>
+            <ul id="purchased-accounts">
+                <li>No purchases yet.</li>
+            </ul>
+            <button id="logout-btn">Logout</button>
+        </div>
+    </div>
+
+    <!-- Guest Modal -->
+    <div id="guest-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Continue as Guest or Sign In</h2>
+            <p>You can view the account details as a guest, but purchasing requires an account.</p>
+            <button id="continue-guest" style="background: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-right: 10px;">Continue without Login</button>
+            <button id="sign-in" style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Continue with Account</button>
+        </div>
+    </div>
     <div class="container">
         <div class="custom-accounts">
             <h2>Submit Your Steam Account for Sale</h2>
@@ -519,29 +649,106 @@
         chat.style.display = chat.style.display === "none" ? "block" : "none";
     }
 
-    // Dark Mode Toggle
+    // User Modal
+    const navProfileImg = document.getElementById('nav-profile-picture');
+    const navIcon = document.getElementById('nav-icon');
+    const userModal = document.getElementById('user-modal');
+    const settingsToggle = document.getElementById('settings-toggle');
+    const settingsContent = document.getElementById('settings-content');
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
     const body = document.body;
-    const darkModeToggle = document.getElementById('darkModeToggle');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    navProfileImg.addEventListener('click', () => {
+        userModal.style.display = 'block';
+        loadUserData();
+    });
+
+    navIcon.addEventListener('click', () => {
+        userModal.style.display = 'block';
+        loadUserData();
+    });
+
+    settingsToggle.addEventListener('click', () => {
+        settingsContent.style.display = settingsContent.style.display === 'none' ? 'block' : 'none';
+    });
 
     // Load dark mode preference from localStorage
     if (localStorage.getItem('darkMode') === 'enabled') {
         body.classList.add('dark-mode');
-        darkModeToggle.textContent = '☀️';
-    } else {
-        darkModeToggle.textContent = '🌙';
+        darkModeToggle.textContent = '☀️ Light Mode';
     }
 
-    // Toggle dark mode
     darkModeToggle.addEventListener('click', () => {
         body.classList.toggle('dark-mode');
         if (body.classList.contains('dark-mode')) {
             localStorage.setItem('darkMode', 'enabled');
-            darkModeToggle.textContent = '☀️';
+            darkModeToggle.textContent = '☀️ Light Mode';
         } else {
             localStorage.setItem('darkMode', 'disabled');
-            darkModeToggle.textContent = '🌙';
+            darkModeToggle.textContent = '🌙 Dark Mode';
         }
     });
+
+    // Close modals
+    const closeBtns = document.getElementsByClassName('close');
+    for (let i = 0; i < closeBtns.length; i++) {
+        closeBtns[i].addEventListener('click', () => {
+            userModal.style.display = 'none';
+        });
+    }
+
+    window.addEventListener('click', (event) => {
+        if (event.target === userModal) {
+            userModal.style.display = 'none';
+        }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('purchasedAccounts');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUser');
+        sessionStorage.removeItem('isLoggedIn');
+        sessionStorage.removeItem('currentUser');
+        window.location.href = 'login.html';
+    });
+
+    function loadUserData() {
+        const username = localStorage.getItem('userName') || 'Guest';
+        const email = localStorage.getItem('userEmail') || 'guest@example.com';
+        const profilePicture = localStorage.getItem('profilePicture');
+        const profileImg = document.getElementById('profile-picture');
+        const navProfileImg = document.getElementById('nav-profile-picture');
+        const navIcon = document.getElementById('nav-icon');
+        if (profilePicture) {
+            profileImg.src = profilePicture;
+            profileImg.style.display = 'block';
+            navProfileImg.src = profilePicture;
+            navProfileImg.style.display = 'inline';
+            navIcon.style.display = 'none';
+            navProfileImg.onerror = () => {
+                navProfileImg.style.display = 'none';
+                navIcon.style.display = 'inline';
+            };
+        } else {
+            profileImg.style.display = 'none';
+            navProfileImg.style.display = 'none';
+            navIcon.style.display = 'inline';
+        }
+        document.getElementById('user-info').innerHTML = `
+            <p><strong>Username:</strong> ${username}</p>
+            <p><strong>Email:</strong> ${email}</p>
+        `;
+
+        const purchasedAccounts = JSON.parse(localStorage.getItem('purchasedAccounts')) || [];
+        const list = document.getElementById('purchased-accounts');
+        list.innerHTML = purchasedAccounts.length > 0
+            ? purchasedAccounts.map(acc => `<li>${acc}</li>`).join('')
+            : '<li>No purchases yet.</li>';
+    }
 
     // Custom Accounts CRUD
     const accountForm = document.getElementById('account-form');
@@ -615,6 +822,36 @@
 
     // Load accounts on page load
     loadAccounts();
+
+    // Guest Modal
+    const guestModal = document.getElementById('guest-modal');
+    const continueGuestBtn = document.getElementById('continue-guest');
+    const signInBtn = document.getElementById('sign-in');
+    let targetUrl = '';
+
+    continueGuestBtn.addEventListener('click', () => {
+        guestModal.style.display = 'none';
+        window.location.href = targetUrl;
+    });
+
+    signInBtn.addEventListener('click', () => {
+        guestModal.style.display = 'none';
+        window.location.href = 'signin.html';
+    });
+
+    // Close guest modal
+    const guestCloseBtns = guestModal.querySelectorAll('.close');
+    guestCloseBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            guestModal.style.display = 'none';
+        });
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === guestModal) {
+            guestModal.style.display = 'none';
+        }
+    });
 </script>
 </body>
 

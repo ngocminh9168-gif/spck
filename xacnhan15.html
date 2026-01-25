@@ -201,8 +201,32 @@
         </div>
     </div>
 
+    <!-- Guest Modal -->
+    <div id="guest-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Continue as Guest or Sign In</h2>
+            <p>You can view the account details as a guest, but purchasing requires an account.</p>
+            <button id="continue-guest" style="background: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-right: 10px;">Continue without Login</button>
+            <button id="sign-in" style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Continue with Account</button>
+        </div>
+    </div>
+
     <script>
+        // Check login
+        if (!localStorage.getItem("isLoggedIn") && !sessionStorage.getItem("isLoggedIn")) {
+            alert("Vui lòng đăng nhập để mua tài khoản!");
+            window.location.href = "login.html";
+        }
+
         function confirmBuy() {
+            // Check login before allowing purchase
+            if (!localStorage.getItem("isLoggedIn") && !sessionStorage.getItem("isLoggedIn")) {
+                // Show modal for guests
+                document.getElementById('guest-modal').style.display = 'block';
+                return;
+            }
+
             // Add to purchased accounts
             let purchasedAccounts = JSON.parse(localStorage.getItem('purchasedAccounts')) || [];
             purchasedAccounts.push('Acc Blox Fruit #015 - Level 1900 | Trái sand | 180.000 VNĐ');
@@ -214,6 +238,35 @@
         function cancelBuy() {
             window.history.back();
         }
+
+        // Guest Modal
+        const guestModal = document.getElementById('guest-modal');
+        const continueGuestBtn = document.getElementById('continue-guest');
+        const signInBtn = document.getElementById('sign-in');
+
+        continueGuestBtn.addEventListener('click', () => {
+            guestModal.style.display = 'none';
+            alert("Bạn không thể mua tài khoản khi chưa đăng nhập!");
+        });
+
+        signInBtn.addEventListener('click', () => {
+            guestModal.style.display = 'none';
+            window.location.href = 'signin.html';
+        });
+
+        // Close guest modal
+        const guestCloseBtns = guestModal.querySelectorAll('.close');
+        guestCloseBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                guestModal.style.display = 'none';
+            });
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === guestModal) {
+                guestModal.style.display = 'none';
+            }
+        });
 
         // Dark Mode Toggle
         const body = document.body;

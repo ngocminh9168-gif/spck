@@ -311,10 +311,10 @@
 
     <nav>
         <div class="nav-center">
-            <a href="#" onclick="alert('Vui lòng đăng nhập để sử dụng!'); return false;">Trang chủ</a>
-            <a href="#" onclick="alert('Vui lòng đăng nhập để sử dụng!'); return false;">Sản phẩm</a>
-            <a href="#" onclick="alert('Vui lòng đăng nhập để sử dụng!'); return false;">Hướng dẫn</a>
-            <a href="#" onclick="alert('Vui lòng đăng nhập để sử dụng!'); return false;">Liên hệ</a>
+            <a href="main.html">Trang chủ</a>
+            <a href="more-acc.html">Sản phẩm</a>
+            <a href="main.html#huongdan">Hướng dẫn</a>
+            <a href="main.html#lienhe">Liên hệ</a>
             <button id="darkModeToggle" style="background: none; border: none; color: #fff; font-size: 20px; cursor: pointer;">🌙</button>
         </div>
     </nav>
@@ -322,13 +322,13 @@
     <div class="container">
         <form class="login-form" id="loginForm" novalidate>
             <h2>Đăng nhập tài khoản</h2>
-            <p class="subtext">Vui lòng nhập email và mật khẩu để tiếp tục</p>
+            <p class="subtext">Vui lòng nhập tên người dùng và mật khẩu để tiếp tục</p>
 
             <div class="input-group">
-                <i class="fa-solid fa-envelope icon-left"></i>
-                <input type="email" id="loginEmail" placeholder="Email" autocomplete="email" required>
+                <i class="fa-solid fa-user icon-left"></i>
+                <input type="text" id="loginUsername" placeholder="Tên người dùng" autocomplete="username" required>
             </div>
-            <p id="emailError" class="error">Vui lòng nhập email hợp lệ.</p>
+            <p id="usernameError" class="error">Vui lòng nhập tên người dùng.</p>
 
             <div class="input-group">
                 <i class="fa-solid fa-lock icon-left"></i>
@@ -370,8 +370,8 @@
 
         // Validate cơ bản, hiển thị lỗi gọn gàng thay vì alert
         const form = document.getElementById('loginForm');
-        const emailInput = document.getElementById('loginEmail');
-        const emailError = document.getElementById('emailError');
+        const usernameInput = document.getElementById('loginUsername');
+        const usernameError = document.getElementById('usernameError');
         const passwordError = document.getElementById('passwordError');
         const rememberMe = document.getElementById('rememberMe');
 
@@ -379,11 +379,11 @@
             e.preventDefault();
 
             let valid = true;
-            emailError.style.display = 'none';
+            usernameError.style.display = 'none';
             passwordError.style.display = 'none';
 
-            if (!emailInput.value || !emailInput.checkValidity()) {
-                emailError.style.display = 'block';
+            if (!usernameInput.value) {
+                usernameError.style.display = 'block';
                 valid = false;
             }
             if (!pwdInput.value || pwdInput.value.length < 6) {
@@ -392,25 +392,37 @@
             }
             if (!valid) return;
 
-            const email = emailInput.value;
+            const username = usernameInput.value;
             const password = pwdInput.value;
 
-            const storedEmail = localStorage.getItem("userEmail");
-            const storedPassword = localStorage.getItem("userPassword");
+            // Get users from localStorage
+            const users = JSON.parse(localStorage.getItem("users")) || [];
 
-            if (email === storedEmail && password === storedPassword) {
+            // Find user by username or email
+            const user = users.find(u => u.name === username || u.email === username);
+
+            if (!user) {
+                passwordError.textContent = "Tên người dùng không tồn tại!";
+                passwordError.style.display = 'block';
+            } else if (user.password !== password) {
+                passwordError.textContent = "Mật khẩu không đúng!";
+                passwordError.style.display = 'block';
+            } else {
                 if (rememberMe.checked) {
                     localStorage.setItem("isLoggedIn", "true");
+                    localStorage.setItem("currentUser", username);
                 } else {
                     // dùng sessionStorage nếu không nhớ đăng nhập
                     sessionStorage.setItem("isLoggedIn", "true");
+                    sessionStorage.setItem("currentUser", username);
                     localStorage.removeItem("isLoggedIn");
+                    localStorage.removeItem("currentUser");
                 }
+                // Clear input fields for security
+                usernameInput.value = '';
+                pwdInput.value = '';
                 alert("Đăng nhập thành công!");
                 window.location.href = "main.html";
-            } else {
-                passwordError.textContent = "Sai email hoặc mật khẩu!";
-                passwordError.style.display = 'block';
             }
         });
 

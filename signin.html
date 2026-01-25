@@ -227,10 +227,12 @@
 
     <nav>
         <div class="nav-center">
-            <a href="#" onclick="alert('Vui lòng đăng nhập để sử dụng!'); window.location.href = 'login.html';">Trang chủ</a>
-            <a href="#" onclick="alert('Vui lòng đăng nhập để sử dụng!'); window.location.href = 'login.html';">Sản phẩm</a>
-            <a href="#" onclick="alert('Vui lòng đăng nhập để sử dụng!'); window.location.href = 'login.html';">Hướng dẫn</a>
-            <a href="#" onclick="alert('Vui lòng đăng nhập để sử dụng!'); window.location.href = 'login.html';">Liên hệ</a>
+            <div class="nav-links">
+                <a href="main.html" class="nav-link">Trang chủ</a>
+                <a href="more-acc.html" class="nav-link">Sản phẩm</a>
+                <a href="#" class="nav-link">Hướng dẫn</a>
+                <a href="#" class="nav-link">Liên hệ</a>
+            </div>
             <button id="darkModeToggle" style="background: none; border: none; color: #fff; font-size: 20px; cursor: pointer;">🌙</button>
         </div>
     </nav>
@@ -247,7 +249,7 @@
                 <i class="fa-solid fa-envelope"></i>
             </div>
             <div class="input-group">
-                <input type="password" id="signupPassword" placeholder="Mật khẩu" required>
+                <input type="password" id="signupPassword" placeholder="Mật khẩu (tối thiểu 6 chữ số)" pattern="[0-9]{6,}" minlength="6" required>
                 <i class="fa-solid fa-lock"></i>
             </div>
             <button type="submit">Đăng ký</button>
@@ -263,9 +265,30 @@
             const name = document.getElementById("signupName").value;
             const email = document.getElementById("signupEmail").value;
             const password = document.getElementById("signupPassword").value;
-            localStorage.setItem("userName", name);
-            localStorage.setItem("userEmail", email);
-            localStorage.setItem("userPassword", password);
+
+            // Get existing users from localStorage
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+
+            // Check if username or email already exists
+            const existingUser = users.find(user => user.name === name || user.email === email);
+            if (existingUser) {
+                if (existingUser.name === name) {
+                    alert("Tên người dùng đã tồn tại! Vui lòng chọn tên khác.");
+                } else {
+                    alert("Email đã được sử dụng! Vui lòng sử dụng email khác.");
+                }
+                return;
+            }
+
+            // Add new user
+            users.push({ name, email, password });
+            localStorage.setItem("users", JSON.stringify(users));
+
+            // Clear input fields for security
+            document.getElementById("signupName").value = '';
+            document.getElementById("signupEmail").value = '';
+            document.getElementById("signupPassword").value = '';
+
             alert("Đăng ký thành công! Vui lòng đăng nhập.");
             window.location.href = "login.html";
         });

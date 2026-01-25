@@ -203,7 +203,20 @@
     </div>
 
     <script>
+        // Check login
+        if (!localStorage.getItem("isLoggedIn") && !sessionStorage.getItem("isLoggedIn")) {
+            alert("Vui lòng đăng nhập để mua tài khoản!");
+            window.location.href = "login.html";
+        }
+
         function confirmBuy() {
+            // Check login before allowing purchase
+            if (!localStorage.getItem("isLoggedIn") && !sessionStorage.getItem("isLoggedIn")) {
+                // Show modal for guests
+                document.getElementById('guest-modal').style.display = 'block';
+                return;
+            }
+
             // Add to purchased accounts
             let purchasedAccounts = JSON.parse(localStorage.getItem('purchasedAccounts')) || [];
             purchasedAccounts.push('Acc Blox Fruit #003 - Level 2500 | Trái Dough | 350.000 VNĐ');

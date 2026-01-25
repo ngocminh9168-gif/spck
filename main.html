@@ -552,6 +552,17 @@ n
             <button id="logout-btn">Logout</button>
         </div>
     </div>
+
+    <!-- Guest Modal -->
+    <div id="guest-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Continue as Guest or Sign In</h2>
+            <p>You can view the account details as a guest, but purchasing requires an account.</p>
+            <button id="continue-guest" style="background: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-right: 10px;">Continue without Login</button>
+            <button id="sign-in" style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Continue with Account</button>
+        </div>
+    </div>
     <a href="more-acc.html" style="text-decoration: none; color: inherit;">
         <div class="banner">
             <img src="https://copilot.microsoft.com/th/id/BCO.6f19de7d-0382-46c4-8618-c64df287eec0.png" alt="Blox Fruits Banner">
@@ -605,7 +616,7 @@ n
         <div class="info" style="text-align: center; background: #e3f2fd; border-color: #2196f3;">
             <h2>Submit Your Account for Sale</h2>
             <p>Have a Blox Fruit account to sell? Submit it for admin review and get it listed in our shop!</p>
-            <a href="customer-accounts.html" class="show-more-btn" style="display: inline-block; margin-top: 10px;">Submit Account</a>
+            <a href="customer-accounts.html" class="show-more-btn submit-link" style="display: inline-block; margin-top: 10px;">Submit Account</a>
         </div>
         <div class="info">
             <h2>Thông tin Shop</h2>
@@ -695,6 +706,12 @@ n
                 logoutBtn.addEventListener('click', () => {
                     localStorage.removeItem('user');
                     localStorage.removeItem('purchasedAccounts');
+                    localStorage.removeItem('userName');
+                    localStorage.removeItem('userEmail');
+                    localStorage.removeItem('isLoggedIn');
+                    localStorage.removeItem('currentUser');
+                    sessionStorage.removeItem('isLoggedIn');
+                    sessionStorage.removeItem('currentUser');
                     window.location.href = 'login.html';
                 });
 
@@ -805,6 +822,64 @@ n
 
                 // Load accounts on page load
                 loadAccounts();
+
+                // Guest Modal
+                const guestModal = document.getElementById('guest-modal');
+                const continueGuestBtn = document.getElementById('continue-guest');
+                const signInBtn = document.getElementById('sign-in');
+                let targetUrl = '';
+
+                // Check login for buy links
+                document.querySelectorAll('.buy-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        const isLoggedInSession = sessionStorage.getItem("isLoggedIn") === "true";
+                        const isLoggedInLocal = localStorage.getItem("isLoggedIn") === "true";
+                        const isLoggedIn = isLoggedInSession || isLoggedInLocal;
+                        if (!isLoggedIn) {
+                            e.preventDefault();
+                            targetUrl = this.href;
+                            guestModal.style.display = 'block';
+                        }
+                    });
+                });
+
+                // Check login for submit link
+                document.querySelectorAll('.submit-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        const isLoggedInSession = sessionStorage.getItem("isLoggedIn") === "true";
+                        const isLoggedInLocal = localStorage.getItem("isLoggedIn") === "true";
+                        const isLoggedIn = isLoggedInSession || isLoggedInLocal;
+                        if (!isLoggedIn) {
+                            e.preventDefault();
+                            targetUrl = this.href;
+                            guestModal.style.display = 'block';
+                        }
+                    });
+                });
+
+                continueGuestBtn.addEventListener('click', () => {
+                    guestModal.style.display = 'none';
+                    window.location.href = targetUrl;
+                });
+
+                signInBtn.addEventListener('click', () => {
+                    guestModal.style.display = 'none';
+                    window.location.href = 'signin.html';
+                });
+
+                // Close guest modal
+                const guestCloseBtns = guestModal.querySelectorAll('.close');
+                guestCloseBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        guestModal.style.display = 'none';
+                    });
+                });
+
+                window.addEventListener('click', (event) => {
+                    if (event.target === guestModal) {
+                        guestModal.style.display = 'none';
+                    }
+                });
 
 
 </script>
