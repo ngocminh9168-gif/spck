@@ -5,181 +5,7 @@
     <meta charset="UTF-8">
     <title>Xác Nhận Mua Tài Khoản</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        /* Toàn bộ trang */
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #dbeafe, #fef9c3);
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Container chính */
-        .confirm-container {
-            display: flex;
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-            max-width: 900px;
-            width: 100%;
-            overflow: hidden;
-            animation: fadeIn 0.6s ease-in-out;
-        }
-
-        /* Hình ảnh */
-        .confirm-image {
-            flex: 1;
-            background: #f3f4f6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .confirm-image img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            max-height: 100%;
-            transition: transform 0.4s ease;
-        }
-
-        .confirm-image img:hover {
-            transform: scale(1.05);
-        }
-
-        /* Nội dung */
-        .confirm-info {
-            flex: 1;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .confirm-info h2 {
-            margin: 0 0 16px;
-            font-size: 2em;
-            color: #1e3a8a;
-            font-weight: 600;
-        }
-
-        .confirm-info p {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-            color: #374151;
-        }
-
-        /* Box thông tin thêm */
-        .extra-info {
-            background: #ecfdf5;
-            border: 1px solid #10b981;
-            padding: 16px;
-            border-radius: 10px;
-            margin-bottom: 28px;
-            font-size: 1em;
-            color: #065f46;
-            line-height: 1.6;
-        }
-
-        /* Nút bấm */
-        .confirm-info button {
-            margin: 10px 0;
-            padding: 14px 32px;
-            font-size: 1.05em;
-            font-weight: 500;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .confirm-btn {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
-        }
-
-        .confirm-btn:hover {
-            background: linear-gradient(135deg, #16a34a, #15803d);
-            transform: translateY(-2px);
-        }
-
-        .cancel-btn {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
-        }
-
-        .cancel-btn:hover {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            transform: translateY(-2px);
-        }
-
-        /* Responsive */
-        @media (max-width: 700px) {
-            .confirm-container {
-                flex-direction: column;
-            }
-
-            .confirm-image img {
-                max-height: 280px;
-            }
-
-            .confirm-info {
-                padding: 24px;
-            }
-        }
-
-        /* Hiệu ứng fade in */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Dark Mode Styles */
-        body.dark-mode {
-            background: linear-gradient(135deg, #0d47a1, #1b5e20);
-            color: #ffffff;
-        }
-
-        body.dark-mode .confirm-container {
-            background: #1e1e1e;
-            color: #ffffff;
-        }
-
-        body.dark-mode .confirm-info h2 {
-            color: #ffffff;
-        }
-
-        body.dark-mode .confirm-info p {
-            color: #ffffff;
-        }
-
-        body.dark-mode .extra-info {
-            background: #2c2c2c;
-            border-color: #10b981;
-            color: #ffffff;
-        }
-
-        body.dark-mode .confirm-btn {
-            background: linear-gradient(135deg, #16a34a, #15803d);
-        }
-
-        body.dark-mode .cancel-btn {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-        }
-        
-    </style>
+    <link rel="stylesheet" href="styles/xacnhan.css" />
 </head>
 
 <body>
@@ -198,8 +24,9 @@
                 ✅ Liên hệ admin để nhận thông tin sau khi thanh toán
             </div>
 
-            <button class="confirm-btn" onclick="confirmBuy()">Xác nhận mua</button>
             <button class="cancel-btn" onclick="cancelBuy()">quay lại</button>
+            <button class="add-to-cart-btn" onclick="addToCart()">Thêm vào giỏ hàng</button>
+            <button class="confirm-btn" onclick="confirmBuy()">Xác nhận mua</button>
         </div>
     </div>
 
@@ -231,14 +58,41 @@
 
             // Add to purchased accounts
             let purchasedAccounts = JSON.parse(localStorage.getItem('purchasedAccounts')) || [];
-            purchasedAccounts.push('Acc Blox Fruit #006 - Level 2350 | Trái Dough | 290.000 VNĐ');
+            purchasedAccounts.push('Acc Blox Fruit #006 - Level 2350 | Trái dough | 290.000 VNĐ');
             localStorage.setItem('purchasedAccounts', JSON.stringify(purchasedAccounts));
 
-            alert("Cảm ơn bạn đã mua tài khoản! Vui lòng liên hệ admin để nhận thông tin.");
+            // Show confirmation modal
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            const modalBg = isDarkMode ? '#1e1e1e' : 'white';
+            const textColor = isDarkMode ? 'white' : 'black';
+            const confirmModal = document.createElement('div');
+            confirmModal.innerHTML = `
+                <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+                    <div style="background: ${modalBg}; color: ${textColor}; padding: 20px; border-radius: 10px; text-align: center;">
+                        <h2>Cảm ơn bạn đã mua đúng tài khoản!</h2>
+                        <p>Vui lòng liên hệ admin để nhận thông tin.</p>
+                        <button onclick="this.parentElement.parentElement.remove()" style="background: #22c55e; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">OK</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(confirmModal);
         }
 
         function cancelBuy() {
             window.history.back();
+        }
+
+        function addToCart() {
+            // Get account details from the page
+            const accountTitle = document.querySelector('.confirm-info h2').textContent;
+            const accountDetails = document.querySelector('.confirm-info p').textContent.replace('<strong>', '').replace('</strong>', '').replace('Giá: ', '');
+
+            // Add to cart
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push(`${accountTitle} - ${accountDetails}`);
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            alert(`${accountTitle} added to cart!`);
         }
 
         // Guest Modal

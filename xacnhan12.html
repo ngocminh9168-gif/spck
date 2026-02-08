@@ -196,8 +196,9 @@
                 ✅ Liên hệ admin để nhận thông tin sau khi thanh toán
             </div>
 
-            <button class="confirm-btn" onclick="confirmBuy()">Xác nhận mua</button>
             <button class="cancel-btn" onclick="cancelBuy()">quay lại</button>
+            <button class="add-to-cart-btn" onclick="addToCart()">Thêm vào giỏ hàng</button>
+            <button class="confirm-btn" onclick="confirmBuy()">Xác nhận mua</button>
         </div>
     </div>
 
@@ -232,7 +233,21 @@
             purchasedAccounts.push('Acc Blox Fruit #012 - Level 2050 | Trái light | 210.000 VNĐ');
             localStorage.setItem('purchasedAccounts', JSON.stringify(purchasedAccounts));
 
-            alert("Cảm ơn bạn đã mua tài khoản! Vui lòng liên hệ admin để nhận thông tin.");
+            // Show confirmation modal
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            const modalBg = isDarkMode ? '#1e1e1e' : 'white';
+            const textColor = isDarkMode ? 'white' : 'black';
+            const confirmModal = document.createElement('div');
+            confirmModal.innerHTML = `
+                <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+                    <div style="background: ${modalBg}; color: ${textColor}; padding: 20px; border-radius: 10px; text-align: center;">
+                        <h2>Cảm ơn bạn đã mua đúng tài khoản!</h2>
+                        <p>Vui lòng liên hệ admin để nhận thông tin.</p>
+                        <button onclick="this.parentElement.parentElement.remove()" style="background: #22c55e; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">OK</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(confirmModal);
         }
 
         function cancelBuy() {

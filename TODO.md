@@ -1,14 +1,15 @@
-# CSS Improvement Plan for customer-accounts.html
+# TODO List for Admin Account Setup
 
-- [x] Add comprehensive styling for form inputs, buttons, and labels (padding, borders, focus states, etc.)
-- [x] Enhance account-item layout with better card design, improved spacing, and visual hierarchy
-- [x] Add hover effects and smooth transitions for buttons, links, and interactive elements
-- [x] Improve shadows, borders, and overall spacing for better depth and readability
-- [x] Enhance mobile responsiveness with additional media queries and flexible layouts
-- [x] Add subtle animations and transitions for a polished user experience
-- [x] Add more shadows throughout the design for better visibility and depth
+- [x] Edit scripts/signin.js: Change role assignment to set 'admin' for username 'minh' and password '123456'
+- [x] Edit scripts/login.js: Modify admin check to include 'minh' as admin user
 
-# Additional Tasks
+# Shopping Cart Implementation
 
-- [x] Add dark and light mode toggle to login.html and signin.html
-- [x] Modify login.html and signin.html to disable nav bar usage, keeping only dark/light mode toggle
+- [x] Add "Add to Cart" buttons to first 4 product cards in main.html
+- [x] Implement addToCart() function to store cart in localStorage as 'cart' array
+- [x] Update user modal to display "Shopping Cart" instead of "Purchased Accounts"
+- [x] Implement loadCart() to display cart items as cards in modal with remove buttons
+- [x] Add "Buy All" button in modal to purchase all cart items
+- [x] Update scripts/xacnhan.js to use 'cart' instead of 'shoppingCart'
+- [x] Update xacnhan pages (1,2,3,6,8) to use inline addToCart with 'cart'
+- [x] Add .cart-card styles in styles/main.css with dark mode support

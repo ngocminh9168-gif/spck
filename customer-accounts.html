@@ -297,6 +297,26 @@
             box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
         }
 
+        .approve-btn {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+        }
+
+        .approve-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .cancel-btn {
+            background: linear-gradient(135deg, #ff5722 0%, #d84315 100%);
+            color: white;
+        }
+
+        .cancel-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+        }
+
         /* Dark Mode Styles */
         body.dark-mode {
             background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
@@ -717,8 +737,29 @@
     });
 
     function loadUserData() {
-        const username = localStorage.getItem('userName') || 'Guest';
-        const email = localStorage.getItem('userEmail') || 'guest@example.com';
+        const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
+        let username = 'Guest';
+        let email = 'guest@example.com';
+        let isAdmin = false;
+
+        if (currentUser) {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(u => u.name === currentUser);
+            if (user) {
+                username = user.name;
+                email = user.email;
+                isAdmin = user.name === 'admin';
+                // Set in localStorage for persistence
+                localStorage.setItem('userName', username);
+                localStorage.setItem('userEmail', email);
+            }
+        }
+
+        // Show admin panel if admin
+        if (isAdmin) {
+            document.getElementById('admin-panel').style.display = 'block';
+        }
+
         const profilePicture = localStorage.getItem('profilePicture');
         const profileImg = document.getElementById('profile-picture');
         const navProfileImg = document.getElementById('nav-profile-picture');
@@ -766,11 +807,14 @@
                     <img src="${account.image}" alt="${account.name}" style="width: 100px; height: 60px; object-fit: cover; border-radius: 4px; margin-right: 12px;">
                     <div>
                         <strong>${account.name}</strong> - Level ${account.level} | ${account.fruit} | ${account.price}
+                        <br><small>Status: ${account.status || 'pending'}</small>
                     </div>
                 </div>
                 <div class="account-actions">
                     <button class="edit-btn" onclick="editAccount(${index})">Edit</button>
                     <button class="delete-btn" onclick="deleteAccount(${index})">Delete</button>
+                    ${account.status !== 'approved' ? `<button class="approve-btn" onclick="approveAccount(${index})">Approve</button>` : ''}
+                    ${account.status !== 'cancelled' ? `<button class="cancel-btn" onclick="cancelAccount(${index})">Cancel</button>` : ''}
                 </div>
             `;
             accountsList.appendChild(accountItem);
@@ -789,11 +833,11 @@
         const accounts = JSON.parse(localStorage.getItem('customAccounts')) || [];
 
         if (editingIndex >= 0) {
-            accounts[editingIndex] = { name, level, fruit, price, image, email };
+            accounts[editingIndex] = { name, level, fruit, price, image, email, status: accounts[editingIndex].status || 'pending' };
             editingIndex = -1;
             accountForm.querySelector('button').textContent = 'Submit for Approval';
         } else {
-            accounts.push({ name, level, fruit, price, image, email });
+            accounts.push({ name, level, fruit, price, image, email, status: 'pending' });
         }
 
         localStorage.setItem('customAccounts', JSON.stringify(accounts));
@@ -816,6 +860,20 @@
     function deleteAccount(index) {
         const accounts = JSON.parse(localStorage.getItem('customAccounts')) || [];
         accounts.splice(index, 1);
+        localStorage.setItem('customAccounts', JSON.stringify(accounts));
+        loadAccounts();
+    }
+
+    function approveAccount(index) {
+        const accounts = JSON.parse(localStorage.getItem('customAccounts')) || [];
+        accounts[index].status = 'approved';
+        localStorage.setItem('customAccounts', JSON.stringify(accounts));
+        loadAccounts();
+    }
+
+    function cancelAccount(index) {
+        const accounts = JSON.parse(localStorage.getItem('customAccounts')) || [];
+        accounts[index].status = 'cancelled';
         localStorage.setItem('customAccounts', JSON.stringify(accounts));
         loadAccounts();
     }

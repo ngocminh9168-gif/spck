@@ -1,4 +1,3 @@
-n 
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -6,501 +5,7 @@ n
     <meta charset="UTF-8">
     <title>Shop Bán Acc Blox Fruit Uy Tín</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #f3f7fa, #e1f5fe);
-            margin: 0;
-            animation: pageFadeIn 0.8s ease-in-out;
-        }
-
-        @keyframes pageFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        header {
-            background: #1a2332;
-            color: #fff;
-            padding: 24px 0;
-            text-align: center;
-        }
-
-        nav {
-            background: #263043;
-            padding: 24px 0;
-            position: sticky;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .nav-center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        nav a {
-            color: #fff;
-            margin: 0 18px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 16px;
-        }
-
-        .banner {
-            position: relative;
-            text-align: center;
-            margin-top: 96px;
-            /* Adjusted to avoid overlap with fixed nav */
-        }
-
-        .banner img {
-            width: 100%;
-            height: auto;
-            max-height: 400px;
-            object-fit: cover;
-        }
-
-        .banner .text-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            z-index: 2;
-        }
-
-        .banner h2 {
-            font-size: 2.2em;
-            margin-bottom: 10px;
-        }
-
-        .banner p {
-            font-size: 1.2em;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 32px auto;
-            background: linear-gradient(135deg, #ffffff, #f8f9fa);
-            padding: 32px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .products {
-            display: flex;
-            gap: 32px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 32px 0;
-        }
-
-        .product-card {
-            background: linear-gradient(135deg, #f7fafc, #e3f2fd);
-            padding: 24px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 260px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-6px) scale(1.03);
-        }
-
-        .product-card img {
-            width: 100%;
-            max-width: 220px;
-            height: 120px;
-            object-fit: cover;
-            margin-bottom: 12px;
-            border-radius: 8px;
-        }
-
-        .product-card h3 {
-            margin: 12px 0 8px;
-            font-size: 1.2em;
-        }
-
-        .product-card p {
-            margin: 0 0 12px;
-            font-size: 1.1em;
-        }
-
-        .product-card button {
-            background: linear-gradient(135deg, #2196f3, #1976d2);
-            color: #fff;
-            border: none;
-            padding: 10px 28px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s;
-            box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
-        }
-
-        .product-card button:hover {
-            background: linear-gradient(135deg, #1976d2, #1565c0);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(33, 150, 243, 0.4);
-        }
-
-        .buy-link {
-            display: inline-block;
-            background: #2196f3;
-            color: #fff;
-            padding: 10px 28px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 1em;
-            transition: background 0.2s;
-        }
-
-        .buy-link:hover {
-            background: #1769aa;
-        }
-
-        .show-more-btn {
-            display: block;
-            margin: 0 auto 32px auto;
-            background: linear-gradient(135deg, #4caf50, #388e3c);
-            color: #fff;
-            border: none;
-            padding: 12px 36px;
-            border-radius: 8px;
-            font-size: 1.1em;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
-        }
-
-        .show-more-btn:hover {
-            background: linear-gradient(135deg, #388e3c, #2e7d32);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
-        }
-
-        .guide,
-        .contact {
-            background: #2196f3;
-            color: #fff;
-            padding: 24px;
-            border-radius: 10px;
-            margin-top: 36px;
-        }
-
-        .contact {
-            margin-bottom: 36px;
-        }
-
-        .footer {
-            background: #1a2332;
-            color: #fff;
-            text-align: center;
-            padding: 18px 0;
-            margin-top: 48px;
-            font-size: 1em;
-        }
-
-        .info {
-            background: #fffbe7;
-            border: 1px solid #ffe082;
-            color: #795548;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 36px 0;
-            font-size: 1.1em;
-        }
-        /* CHATBOT */
-        .chatbot {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 360px;
-            height: 520px;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            z-index: 9999;
-            display: none;
-        }
-
-        /* TOGGLE BUTTON */
-        .chat-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: #667eea;
-            color: white;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            z-index: 10000;
-        }
-
-        @media (max-width: 900px) {
-            .products {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .container {
-                padding: 16px;
-            }
-        }
-         a {
-            text-decoration: none;
-            color: white;
-        }
-
-        /* Dark Mode Styles */
-        body.dark-mode {
-            background: #000000;
-            color: #ffffff;
-        }
-
-        body.dark-mode header {
-            background: #1e1e1e;
-        }
-
-        body.dark-mode nav {
-            background: #2c2c2c;
-        }
-
-        body.dark-mode nav a {
-            color: #ffffff;
-        }
-
-        body.dark-mode .banner {
-            background: linear-gradient(90deg, #0d47a1, #1b5e20);
-        }
-
-        body.dark-mode .container {
-            background: #1e1e1e;
-            color: #ffffff;
-        }
-
-        body.dark-mode .product-card {
-            background: #2c2c2c;
-            color: #ffffff;
-        }
-
-        body.dark-mode .product-card button {
-            background: #0d47a1;
-        }
-
-        body.dark-mode .product-card button:hover {
-            background: #0a3a7a;
-        }
-
-        body.dark-mode .show-more-btn {
-            background: #1b5e20;
-        }
-
-        body.dark-mode .show-more-btn:hover {
-            background: #0f4c1a;
-        }
-
-        body.dark-mode .guide,
-        body.dark-mode .contact {
-            background: #0d47a1;
-        }
-
-        body.dark-mode .footer {
-            background: #1e1e1e;
-        }
-
-        body.dark-mode .info {
-            background: #2c2c2c;
-            border-color: #ffeb3b;
-            color: #ffffff;
-        }
-
-        body.dark-mode .info h2, body.dark-mode .info p {
-            color: #ffffff;
-        }
-
-        body.dark-mode .info a {
-            color: #ffffff;
-        }
-
-        body.dark-mode .info[style*="background: #e3f2fd"] {
-            background: #2c2c2c !important;
-            border-color: #ffeb3b !important;
-        }
-
-        body.dark-mode .info a {
-            color: #ffffff;
-        }
-
-        body.dark-mode .chat-toggle {
-            background: #424242;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        body.dark-mode .modal {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, #fefefe, #f8f9fa);
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-        }
-
-        #logout-btn {
-            background: #f44336;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-
-        #logout-btn:hover {
-            background: #d32f2f;
-        }
-
-        body.dark-mode .modal-content {
-            background: #000000;
-            color: #ffffff;
-        }
-
-        body.dark-mode .close {
-            color: #aaa;
-        }
-
-        body.dark-mode input, body.dark-mode textarea, body.dark-mode select {
-            background-color: #3c3c3c;
-            color: #ffffff;
-            border: 1px solid #555;
-        }
-
-        body.dark-mode button {
-            background-color: #0d47a1;
-            color: #ffffff;
-        }
-
-        body.dark-mode button:hover {
-            background-color: #0a3a7a;
-        }
-
-        body.dark-mode h4, body.dark-mode p, body.dark-mode label {
-            color: #ffffff;
-        }
-
-        body.dark-mode .settings-content h4 {
-            color: #ffffff;
-        }
-
-        body.dark-mode .settings-content p {
-            color: #ffffff;
-        }
-
-        /* Custom Accounts Styles */
-        .custom-accounts {
-            background: #f7fafc;
-            padding: 24px;
-            border-radius: 10px;
-            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
-        }
-
-        .custom-accounts h2 {
-            margin-top: 0;
-        }
-
-        .account-item {
-            background: #fff;
-            padding: 16px;
-            margin-bottom: 12px;
-            border-radius: 8px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .account-info {
-            flex-grow: 1;
-        }
-
-        .account-actions button {
-            margin-left: 8px;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .edit-btn {
-            background: #ff9800;
-            color: white;
-        }
-
-        .delete-btn {
-            background: #f44336;
-            color: white;
-        }
-
-        body.dark-mode .custom-accounts {
-            background: #2c2c2c;
-            color: #ffffff;
-        }
-
-        body.dark-mode .account-item {
-            background: #3c3c3c;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/main.css" />
 </head>
 
 <body>
@@ -520,7 +25,7 @@ n
     <nav>
         <div class="nav-center">
             <a href="#">Trang chủ</a>
-            <a href="#sanpham">Tài khoản</a>
+            <a href="/more-acc.html">Tài khoản</a>
             <a href="#huongdan">Hướng dẫn</a>
             <a href="#lienhe">Liên hệ</a>
             <img id="nav-profile-picture" src="" alt="Profile Picture" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; cursor: pointer; margin: 0 18px; display: none;">
@@ -537,18 +42,16 @@ n
                 <div id="profile-picture-container">
                     <img id="profile-picture" src="" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; display: none;">
                 </div>
-                <p><strong>Username:</strong> Guest</p>
-                <p><strong>Email:</strong> guest@example.com</p>
             </div>
             <button id="settings-toggle" style="background: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-bottom: 20px;">Settings</button>
             <div id="settings-content" style="display: none;">
                 <h4>Dark Mode</h4>
                 <button id="dark-mode-toggle" style="background: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">🌙 Dark Mode</button>
             </div>
-            <h3>Purchased Accounts</h3>
-            <ul id="purchased-accounts">
-                <li>No purchases yet.</li>
-            </ul>
+            <h3>Shopping Cart</h3>
+            <div id="cart-items" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <p>Your cart is empty.</p>
+            </div>
             <button id="logout-btn">Logout</button>
         </div>
     </div>
@@ -574,12 +77,13 @@ n
         <h2 id="sanpham">Các tài khoản nổi bật</h2>
         <div class="products">
             <!-- Product cards here (same as before) -->
-        <div class="products">
+        <div class="products" id="products-list">
             <div class="product-card">
                 <img src="https://cdn-offer-photos.zeusx.com/79d8b91f-3849-41b4-812b-b14ed945313a.jpg"
                     alt="Acc Blox Fruit">
                 <h3>Acc Blox Fruit #001</h3>
                 <p>Level 2550 | Trái Leopard | <b>400.000 VNĐ</b></p>
+                <button class="add-to-cart-btn" data-name="Acc Blox Fruit #001" data-level="2550" data-fruit="Leopard" data-price="400.000 VNĐ" data-image="https://cdn-offer-photos.zeusx.com/79d8b91f-3849-41b4-812b-b14ed945313a.jpg">Add to Cart</button>
                 <a href="xacnhan1.html" class="buy-link">Mua</a>
             </div>
             <div class="product-card">
@@ -587,12 +91,14 @@ n
                     alt="Acc Blox Fruit">
                 <h3>Acc Blox Fruit #002</h3>
                 <p>Level 2550 | Trái Dragon | <b>390.000 VNĐ</b></p>
+                <button class="add-to-cart-btn" data-name="Acc Blox Fruit #002" data-level="2550" data-fruit="Dragon" data-price="390.000 VNĐ" data-image="https://cdn-offer-photos.zeusx.com/78829ec3-ebf7-43e5-9aa7-14ed7faebbbb.jpg">Add to Cart</button>
                 <a href="xacnhan2.html" class="buy-link">Mua</a>
             </div>
             <div class="product-card">
                 <img src="https://cdn-offer-photos.zeusx.com/947c1a4f-1c4b-4341-a767-1e283720827e.jpg" alt="Acc Blox Fruit">
                 <h3>Acc Blox Fruit #003</h3>
                 <p>Level 2500 | Trái Dough | <b>350.000 VNĐ</b></p>
+                <button class="add-to-cart-btn" data-name="Acc Blox Fruit #003" data-level="2500" data-fruit="Dough" data-price="350.000 VNĐ" data-image="https://cdn-offer-photos.zeusx.com/947c1a4f-1c4b-4341-a767-1e283720827e.jpg">Add to Cart</button>
                 <a href="xacnhan3.html" class="buy-link">Mua</a>
             </div>
             <div class="product-card">
@@ -600,6 +106,7 @@ n
                     alt="Acc Blox Fruit">
                 <h3>Acc Blox Fruit #004</h3>
                 <p>Level 2450 | Trái Venom | <b>320.000 VNĐ</b></p>
+                <button class="add-to-cart-btn" data-name="Acc Blox Fruit #004" data-level="2450" data-fruit="Venom" data-price="320.000 VNĐ" data-image="https://cdn-offer-photos.zeusx.com/edf611a8-84f8-4a8f-8312-1adcad75dc13.jpg">Add to Cart</button>
                 <a href="xacnhan4.html" class="buy-link">Mua</a>
             </div>
             <div class="product-card">
@@ -612,7 +119,7 @@ n
         </div>
 
         </div>
-        <button class="show-more-btn" onclick="window.location.href='more-acc.html'">Xem thêm</button>
+        <button class="show-more-btn" onclick="window.location.href='more-acc.html'">danh sách tài khoản</button>
         <div class="info" style="text-align: center; background: #e3f2fd; border-color: #2196f3;">
             <h2>Submit Your Account for Sale</h2>
             <p>Have a Blox Fruit account to sell? Submit it for admin review and get it listed in our shop!</p>
@@ -716,8 +223,22 @@ n
                 });
 
                 function loadUserData() {
-                    const username = localStorage.getItem('userName') || 'Guest';
-                    const email = localStorage.getItem('userEmail') || 'guest@example.com';
+                    const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
+                    let username = 'Guest';
+                    let email = 'guest@example.com';
+
+                    if (currentUser) {
+                        const users = JSON.parse(localStorage.getItem('users')) || [];
+                        const user = users.find(u => u.name === currentUser);
+                        if (user) {
+                            username = user.name;
+                            email = user.email;
+                            // Set in localStorage for persistence
+                            localStorage.setItem('userName', username);
+                            localStorage.setItem('userEmail', email);
+                        }
+                    }
+
                     const profilePicture = localStorage.getItem('profilePicture');
                     const profileImg = document.getElementById('profile-picture');
                     const navProfileImg = document.getElementById('nav-profile-picture');
@@ -742,11 +263,7 @@ n
                         <p><strong>Email:</strong> ${email}</p>
                     `;
 
-                    const purchasedAccounts = JSON.parse(localStorage.getItem('purchasedAccounts')) || [];
-                    const list = document.getElementById('purchased-accounts');
-                    list.innerHTML = purchasedAccounts.length > 0
-                        ? purchasedAccounts.map(acc => `<li>${acc}</li>`).join('')
-                        : '<li>No purchases yet.</li>';
+                    loadCart();
                 }
 
                 // Custom Accounts CRUD
@@ -881,6 +398,116 @@ n
                     }
                 });
 
+    // Load user data on page load to update nav
+    loadUserData();
+
+    // Add admin link if user is admin
+    const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
+    if (currentUser) {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(u => u.name === currentUser);
+        if (user && user.role === 'admin') {
+            const navCenter = document.querySelector('.nav-center');
+            const adminLink = document.createElement('a');
+            adminLink.href = 'check-acc.html';
+            adminLink.textContent = 'Admin';
+            navCenter.appendChild(adminLink);
+        }
+    }
+
+    // Load approved custom accounts
+    function loadApprovedAccounts() {
+        const accounts = JSON.parse(localStorage.getItem('customAccounts')) || [];
+        const approvedAccounts = accounts.filter(acc => acc.status === 'approved');
+        const productsList = document.getElementById('products-list');
+        approvedAccounts.forEach(account => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.innerHTML = `
+                <img src="${account.image}" alt="${account.name}">
+                <h3>${account.name}</h3>
+                <p>Level ${account.level} | ${account.fruit} | <b>${account.price} VNĐ</b></p>
+                <a href="xacnhan1.html" class="buy-link">Mua</a>
+            `;
+            productsList.appendChild(productCard);
+        });
+    }
+
+    // Load approved accounts on page load
+    loadApprovedAccounts();
+
+                // Load approved custom accounts
+                function loadApprovedAccounts() {
+                    const accounts = JSON.parse(localStorage.getItem('customAccounts')) || [];
+                    const approvedAccounts = accounts.filter(acc => acc.status === 'approved');
+                    const productsList = document.getElementById('products-list');
+                    approvedAccounts.forEach(account => {
+                        const productCard = document.createElement('div');
+                        productCard.className = 'product-card';
+                        productCard.innerHTML = `
+                            <img src="${account.image}" alt="${account.name}">
+                            <h3>${account.name}</h3>
+                            <p>Level ${account.level} | ${account.fruit} | <b>${account.price} VNĐ</b></p>
+                            <a href="#" class="buy-link">Mua</a>
+                        `;
+                        productsList.appendChild(productCard);
+                    });
+                }
+
+                // Load approved accounts on page load
+                loadApprovedAccounts();
+
+                // Shopping Cart Functionality
+                function addToCart(name, level, fruit, price, image) {
+                    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    const item = { name, level, fruit, price, image };
+                    cart.push(item);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    loadCart();
+                    alert(`${name} added to cart!`);
+                }
+
+                function loadCart() {
+                    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    const cartItemsDiv = document.getElementById('cart-items');
+                    cartItemsDiv.innerHTML = '';
+                    if (cart.length === 0) {
+                        cartItemsDiv.innerHTML = '<p>Your cart is empty.</p>';
+                        return;
+                    }
+                    cart.forEach((item, index) => {
+                        const cartCard = document.createElement('div');
+                        cartCard.className = 'cart-card';
+                        cartCard.innerHTML = `
+                            <img src="${item.image}" alt="${item.name}" style="width: 80px; height: 50px; object-fit: cover; border-radius: 4px;">
+                            <div>
+                                <h4>${item.name}</h4>
+                                <p>Level ${item.level} | ${item.fruit} | ${item.price}</p>
+                                <button onclick="removeFromCart(${index})" style="background: #f44336; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">Remove</button>
+                            </div>
+                        `;
+                        cartItemsDiv.appendChild(cartCard);
+                    });
+                }
+
+                function removeFromCart(index) {
+                    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    cart.splice(index, 1);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    loadCart();
+                }
+
+                // Add event listeners to add-to-cart buttons
+                document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const name = btn.getAttribute('data-name');
+                        const level = btn.getAttribute('data-level');
+                        const fruit = btn.getAttribute('data-fruit');
+                        const price = btn.getAttribute('data-price');
+                        const image = btn.getAttribute('data-image');
+                        addToCart(name, level, fruit, price, image);
+                    });
+                });
 
 </script>
     </div>
